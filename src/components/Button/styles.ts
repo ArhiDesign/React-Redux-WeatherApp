@@ -1,29 +1,26 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled"
 
-//interface MainButtonStyledProps {
- // disabled: boolean;
- // $isRed: boolean;
-//}
-
-export const MainButton = styled.button<{ $isRed: boolean }>`
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: ${({ $isRed }) => ($isRed ? '#ff4040' : '#4CAF50')};
+export const StyledButton = styled.button`
+  width: 146px;
+  height: 48px;
+  padding: 12px 40px;
+  gap: 10px;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 600;
   color: white;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(0deg, #3678b4, #3678b4);
 
   &:hover {
-    background-color: ${({ $isRed }) => ($isRed ? '#d63333' : '#45a049')};
+    opacity: 0.9;
   }
 
-  &:disabled {
-    background-color: #c0c0c0;
-    cursor: not-allowed;
+  &:active {
+    opacity: 0.8;
   }
 `
-
-

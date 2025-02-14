@@ -1,18 +1,12 @@
-import { ButtonProps } from "./types";
-import { MainButton } from "./styles";
+import { ButtonProps } from "./types"
+import { StyledButton } from "./styles"
 
-
-function Button({
-  name = "SEND",
-  type = "button",
-  onClick,
-  disabled = false,
-  isRed = false,
-}: ButtonProps) {
+function Button({ children, onClick, disabled = false }: ButtonProps) {
   return (
-    <MainButton type={type} onClick={onClick} disabled={disabled} $isRed={isRed}>
-      {name}
-    </MainButton>
-  );
+    <StyledButton onClick={onClick} disabled={disabled}>
+      {children}
+    </StyledButton>
+  )
 }
-export default Button;
+
+export default Button

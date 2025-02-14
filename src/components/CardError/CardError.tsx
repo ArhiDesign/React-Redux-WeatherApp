@@ -1,13 +1,14 @@
-import React from 'react';
-import { ErrorMessageProps } from './types';
-import { ErrorCard, ErrorMessageText } from './styles';
+import React from "react"
+import { ErrorContainer, ErrorTitle, ErrorMessage } from "./styles"
+import { CardErrorProps } from "./types"
 
-const CardError: React.FC<ErrorMessageProps> = ({ message }) => {
+function CardError({ message }: CardErrorProps) {
   return (
-    <ErrorCard>
-      <ErrorMessageText>{message}</ErrorMessageText>
-    </ErrorCard>
-  );
-};
+    <ErrorContainer>
+      <ErrorTitle>API Error</ErrorTitle>
+      <ErrorMessage>Something went wrong with API data</ErrorMessage>
+    </ErrorContainer>
+  )
+}
 
-export default CardError;
+export default CardError

@@ -1,6 +1,34 @@
-import { Global, css } from "@emotion/react";
+import { Global, css } from "@emotion/react"
 
-const globalStyles = css`
+const GlobalStyles = () => (
+  <Global
+    styles={css`
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-image: url("/src/assets/fon.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        // min-height: 100vh;
+      }
+
+      #root {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        font-family: "Arial", sans-serif;
+      }
+    `}
+  />
+)
+
+export default GlobalStyles
+
+/*const globalStyles = css`
   @import url(https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic);
 
 * {
@@ -9,6 +37,7 @@ const globalStyles = css`
 
 body,
 html {
+ 
   height: 100%;
   margin: 0;
   padding: 0;
@@ -25,15 +54,10 @@ p {
   padding: 0;
 }
 
-#root {
-  display: flex;
-  min-height: 100%;
-  font-family: Lato, sans-serif;
-}
-`
+
 
 function GlobalStyles() {
   return <Global styles={globalStyles} />
 }
 
-export default GlobalStyles;
+export default GlobalStyles;*/

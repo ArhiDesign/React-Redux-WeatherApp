@@ -1,65 +1,67 @@
-import { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addWeatherData } from "store/redux/weather/WeatherSlice"; 
-import { fetchWeather } from "store/redux/weather/WeatherSlice"; 
-import { RootState } from "@reduxjs/toolkit/query"; 
-import { Link } from "react-router-dom";
+import { useState } from "react"
+import axios from "axios"
 
-const Home = () => {
-  const [city, setCity] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const dispatch = useDispatch();
-  const weatherHistory = useSelector((state: RootState) => state.weather.history);
+import { HomeContainer, FormContainer } from "./styles"
+import Input from "../../components/Input/Input"
+import Button from "../../components/Button/Button"
+import Spinner from "components/Spinner/Spinner"
+import CardWeather from "../../components/CardWeather/CardWeather"
+import CardError from "../../components/CardError/CardError"
+import { useAppDispatch } from "../../store/hooks"
+import { addWeatherCard } from "store/redux/WeatherSl/weatherSlice"
+import { WeatherCardData } from "./types"
 
-  const handleSearch = useCallback(async () => {
-    if (!city.trim()) {
-      alert("Введите название города");
-      return;
-    }
+const API_KEY = "acadc9340e26d3a6d841ca9d471a664d"
 
-    setLoading(true);
-    setError(null);
+function Home() {
+  const [city, setCity] = useState("")
+  const [weatherData, setWeatherData] = useState<WeatherCardData | null>(null)
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const dispatch = useAppDispatch()
 
+  const handleSearch = async () => {
+    if (!city) return
+    setLoading(true)
+    setError("")
+    setWeatherData(null)
     try {
-      const weatherData = await fetchWeather(city);
-      if (!weatherData) throw new Error("Данные о погоде не получены");
-      dispatch(addWeatherData(weatherData));
-    } catch (err) {
-      setError("Ошибка загрузки данных");
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`,
+      )
+      const data = response.data
+      const weatherCardData: WeatherCardData = {
+        id: data.id,
+        city: data.name,
+        temperature: data.main.temp,
+        description: data.weather[0].description,
+        icon: data.weather[0].icon,
+        timestamp: new Date().toISOString(),
+      }
+      setWeatherData(weatherCardData)
+      dispatch(addWeatherCard(weatherCardData))
+    } catch (err: any) {
+      setError("City not found or error fetching data.")
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  }, [city, dispatch]);
+  }
 
   return (
-    <div>
-      <h1>Weather App</h1>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/history">History</Link>
-      </nav>
-      <input 
-        value={city} 
-        onChange={(e) => setCity(e.target.value)} 
-        placeholder="Введите город" 
-      />
-      <button onClick={handleSearch} disabled={loading}>Search</button>
-      {loading && <p>Загрузка...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <HomeContainer>
+      <FormContainer>
+        <Input
+          value={city}
+          onChange={e => setCity(e.target.value)}
+          placeholder="Enter city name"
+        />
+        <Button onClick={handleSearch}>Search</Button>
+      </FormContainer>
+      {loading && <Spinner />}
+      {weatherData && !error && <CardWeather weatherData={weatherData} />}
+      {error && <CardError message={error} />}
+    </HomeContainer>
+  )
+}
 
-      {weatherHistory.length > 0 && (
-        <div>
-          <h2>Последний результат</h2>
-          <p>Город: {weatherHistory[weatherHistory.length - 1].name}</p>
-          <p>Температура: {weatherHistory[weatherHistory.length - 1].main.temp}°C</p>
-          <img 
-            src={`http://openweathermap.org/img/w/${weatherHistory[weatherHistory.length - 1].weather[0].icon}.png`} 
-            alt="Иконка погоды"
-          />
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default Home;
+export default Home

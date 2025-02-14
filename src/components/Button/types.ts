@@ -1,7 +1,5 @@
 export interface ButtonProps {
-    name?: string;
-    type?: "submit" | "button" | "reset";
-    onClick?: () => void;
-    disabled?: boolean;
-    isRed?: boolean;
-  }
+  children: React.ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+}

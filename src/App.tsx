@@ -14,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/history" element={<History />} />
+        <Route path="*" element={<div>Page not found</div>} />
       </Routes>
       </Layout>
     </BrowserRouter>

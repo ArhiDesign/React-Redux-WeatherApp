@@ -1,72 +1,55 @@
-import styled from "@emotion/styled";
-import { NavLink, Link } from "react-router-dom";
+import styled from "@emotion/styled"
 
 export const LayoutWrapper = styled.div`
-background-image: url('assets/fon.png');
   display: flex;
   flex-direction: column;
-  flex: 1;
-`;
+  min-height: 100vh;
+  width: 100%;
+`
 
 export const Header = styled.header`
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid #d2d2d2;
+  padding: 10px;
+  gap: 10px;
+  background:
+    linear-gradient(0deg, rgba(18, 45, 77, 0.5), rgba(18, 45, 77, 0.5)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(8.8px);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  width: 100%;
-  height: fit-content;
-  background-color: #2f5a6e;
+  justify-content: space-between;
+`
+
+export const HeaderTitle = styled.h1`
   color: white;
-`;
-
-export const HeaderLogoContainer = styled.div`
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-`;
-
-export const HeaderLogo = styled.img`
-  width: 100%;
-  height: 100%;
-`;
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 20px;
+`
 
 export const NavContainer = styled.nav`
   display: flex;
-  gap: 10px;
-`;
+  background:
+    linear-gradient(0deg, rgba(179, 186, 195, 0.5), rgba(45, 75, 111, 0.5)),
+    linear-gradient(0deg, rgba(245, 243, 243, 0.1), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(8px);
+  padding: 0.5rem;
+  position: absolute;
+  right: 50px;
+  top: 28px;
+`
 
-export const Main = styled.main`
-  display: flex;
-  flex-direction: column;
+export const NavItem = styled.div`
+  margin-right: 1rem;
+  color: white;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+export const MainContent = styled.main`
   flex: 1;
-  padding: 20px;
-`;
-
-export const Footer = styled.footer`
-  display: flex;
-  padding: 30px 70px;
-  width: 100%;
-  height: fit-content;
-  justify-content: space-between;
-  background-color: #2f5a6e;
-  color: white;
-`;
-
-export const FooterNavContainer = styled.nav`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-`;
-
-export const StyledNavLink = styled(NavLink)`
-  text-decoration: none;
-  font-size: 20px;
-  color: white;
-`;
-
-export const StyledLink = styled(Link)`
-  text-decoration: none;
-  font-size: 16px;
-  color: white;
-`;
+  padding: 1rem;
+`

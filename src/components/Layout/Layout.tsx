@@ -1,64 +1,48 @@
-import { useNavigate } from "react-router-dom";
-
-import { LayoutProps } from "./types";
+import React from "react"
+import { NavLink } from "react-router-dom"
+import { LayoutProps } from "./types"
 import {
   LayoutWrapper,
   Header,
-  HeaderLogoContainer,
-  HeaderLogo,
+  HeaderTitle,
   NavContainer,
-  Main,
-  Footer,
-  StyledNavLink,
-  StyledLink,
-  FooterNavContainer,
-} from "./styles";
-import Logo from "assets/fon.png";
+  NavItem,
+  MainContent,
+} from "./styles"
 
 function Layout({ children }: LayoutProps) {
-  const navigate = useNavigate();
-
-  const goToHomePage = () => navigate("/");
-
   return (
     <LayoutWrapper>
       <Header>
-        <HeaderLogoContainer onClick={goToHomePage}>
-          <HeaderLogo src={Logo} alt="Weather App Logo" />
-        </HeaderLogoContainer>
+        <HeaderTitle>Weather App</HeaderTitle>
         <NavContainer>
-          <StyledNavLink
-            style={({ isActive }) => ({
-              textDecoration: isActive ? "underline" : "none",
-            })}
-            to="/"
-          >
-            Home
-          </StyledNavLink>
-
-          <StyledNavLink
-            style={({ isActive }) => ({
-              textDecoration: isActive ? "underline" : "none",
-            })}
-            to="/history"
-          >
-            History
-          </StyledNavLink>
+          <NavItem>
+            <NavLink
+              to="/"
+              style={({ isActive }) => ({
+                textDecoration: isActive ? "underline" : "none",
+                color: "white",
+              })}
+            >
+              Home
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              to="/history"
+              style={({ isActive }) => ({
+                textDecoration: isActive ? "underline" : "none",
+                color: "white",
+              })}
+            >
+              History
+            </NavLink>
+          </NavItem>
         </NavContainer>
       </Header>
-      <Main>{children}</Main>
-      <Footer>
-        <HeaderLogoContainer onClick={goToHomePage}>
-          <HeaderLogo src={Logo} alt="Weather App Logo" />
-        </HeaderLogoContainer>
-        <FooterNavContainer>
-          <StyledLink to="/">Home</StyledLink>
-          <StyledLink to="/history">History</StyledLink>
-        </FooterNavContainer>
-      </Footer>
+      <MainContent>{children}</MainContent>
     </LayoutWrapper>
-  );
+  )
 }
 
-export default Layout;
-
+export default Layout

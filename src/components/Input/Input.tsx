@@ -1,31 +1,15 @@
-import { ErrorMessage, InputContainer, InputElement, Label, } from "./styles";
-import { InputProps } from './types'
+import { StyledInput } from "./styles"
+import { InputProps } from "./types"
 
-function Input({
-  name,
-  type = 'text',
-  placeholder,
-  label,
-  id,
-  value,
-  onChange,
-  error
-}: InputProps) {
+function Input({ value, onChange, placeholder = "" }: InputProps) {
   return (
-    <InputContainer>
-      {label && <Label htmlFor={id}>{label}</Label>}
-      <InputElement
-        name={name}
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
-      <ErrorMessage>{error}</ErrorMessage>
-    </InputContainer>
-  );
+    <StyledInput
+      type="text"
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+    />
+  )
 }
 
-export default Input;
-
+export default Input

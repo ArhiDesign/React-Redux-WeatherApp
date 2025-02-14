@@ -1,28 +1,40 @@
+import React from "react"
+import {
+  CardContainer,
+  CityName,
+  Temperature,
+  IconContainer,
+  Icon,
+  CityInfo,
+} from "./styles"
+import { CardWeatherProps } from "./types"
 
-import React from 'react';
-import { WeatherData } from 'store/redux/weather/types';
-import { Card, CardContent, CardTitle, CardDescription, CardImage, CardButton } from './styles';
-
-type CardWeatherProps = {
-  data: WeatherData;
-  onDelete: (city: string) => void;
-};
-
-const CardWeather: React.FC<CardWeatherProps> = ({ data, onDelete }) => {
+function CardWeather({ weatherData }: CardWeatherProps) {
   return (
-    <Card>
-      <CardContent>
-        <CardTitle>{data.city}</CardTitle>
-        <CardImage
-          src={`http://openweathermap.org/img/w/${data.icon}.png`}
-          alt={data.description}
-        />
-        <CardDescription>{data.description}</CardDescription>
-        <CardDescription>Temperature: {data.temperature}°C</CardDescription>
-        <CardButton onClick={() => onDelete(data.city)}>Delete</CardButton>
-      </CardContent>
-    </Card>
-  );
-};
+    <CardContainer>
+      <CityInfo>
+        <Temperature>
+          {Math.round(weatherData.temperature - 273.15)}°C
+        </Temperature>
+        <CityName>{weatherData.city}</CityName>
+      </CityInfo>
 
-export default CardWeather;
+      <IconContainer>
+        <Icon
+          src={`http://openweathermap.org/img/w/${weatherData.icon}.png`}
+          alt="Weather icon"
+        />
+        <Icon
+          src={`http://openweathermap.org/img/w/${weatherData.icon}.png`}
+          alt="Weather icon"
+        />
+        <Icon
+          src={`http://openweathermap.org/img/w/${weatherData.icon}.png`}
+          alt="Weather icon"
+        />
+      </IconContainer>
+    </CardContainer>
+  )
+}
+
+export default CardWeather
